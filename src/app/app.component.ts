@@ -32,6 +32,7 @@ export class AppComponent {
           text: 'Furniture', items: [
             { text: 'Tables & Chairs' },
             { text: 'Sofas' },
+            { text: 'Hani', extra: 'Extra' },
             {
               text: 'Occasional Furniture', items: [{
                 text: 'Decor', items: [
