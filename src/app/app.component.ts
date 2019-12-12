@@ -1,52 +1,51 @@
 import { Component } from '@angular/core';
-import { CheckableSettings } from '@progress/kendo-angular-treeview';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
-    selector: 'app-root',
-    styles: [`.right { margin-right: 5px }`],
-    templateUrl: './app.component.html'
-})
-export class AppComponent {
-    public checkedKeys: any[] = ['1'];
+      selector: 'my-app',
+      template: `
+      <kendo-treeview
+          [isDisabled]="isDisabled"
 
-    public enableCheck = true;
-    public checkChildren = true;
-    public checkParents = true;
-    public checkOnClick = false;
-    public checkMode: any = 'multiple';
-    public selectionMode: any = 'single';
+          kendoTreeViewExpandable
 
-    public get checkableSettings(): CheckableSettings {
-        return {
-            checkChildren: this.checkChildren,
-            checkParents: this.checkParents,
-            enabled: this.enableCheck,
-            mode: this.checkMode,
-            checkOnClick: this.checkOnClick
-        };
-    }
+          [nodes]="data"
+          textField="text"
 
-    public data: any[] = [
-        {
-          text: 'Furniture', items: [
-            { text: 'Tables & Chairs' },
-            { text: 'Sofas' },
-            { text: 'Hani', extra: 'Extra' },
-            {
-              text: 'Occasional Furniture', items: [{
-                text: 'Decor', items: [
+          [children]="fetchChildren"
+          [hasChildren]="hasChildren"
+          >
+      </kendo-treeview>
+  `
+  })
+  export class AppComponent {
+
+      public data: any[] = [{
+              text: 'Furniture', items: [
+                  { text: 'Tables & Chairs' },
+                  { text: 'Sofas' },
+                  { text: 'Occasional Furniture' }
+              ]
+          }, {
+              text: 'Decor', items: [
                   { text: 'Bed Linen' },
-                  { text: 'Curtains & Blinds' }
-                ]
-              }]
-            }
-          ]
-        },
-        { text: 'Decor' },
-        { text: 'Outdoors' }
-    ];
+                  { text: 'Curtains & Blinds' },
+                  { text: 'Carpets' }
+              ]
+          }
+      ];
+      // A function that disables every item with a text field which equals to 'Decor'.
+      public isDisabled = (dataItem: any) => {
+          return dataItem.text === 'Decor';
+      }
 
-    public children = (dataItem: any): Observable<any[]> => of(dataItem.items);
-    public hasChildren = (dataItem: any): boolean => !!dataItem.items;
-}
+      public fetchChildren(node: any): Observable<any[]> {
+          // Return the node collection of the parent node as children.
+          return of(node.items);
+      }
+
+      public hasChildren(node: any): boolean {
+          // Check if the parent node has children.
+          return node.items && node.items.length > 0;
+      }
+  }
