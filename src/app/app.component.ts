@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { of, Observable } from 'rxjs';
 
 @Component({
+    // tslint:disable-next-line: component-selector
     selector: 'my-app',
     template: `
      <kendo-treeview
@@ -17,7 +18,7 @@ import { of, Observable } from 'rxjs';
      </kendo-treeview>
  `
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
     public data: any[] = [
         {
             text: 'Furniture', items: [
@@ -39,6 +40,10 @@ export class AppComponent {
      * The field that holds the keys of the expanded nodes.
      */
     public keys: string[] = [];
+
+    ngOnInit() {
+      this.keys = ['0', '1'];
+    }
 
     /**
      * A function that checks whether a given node index exists in the expanded keys collection.
