@@ -3,13 +3,14 @@ import { CheckableSettings } from '@progress/kendo-angular-treeview';
 import { of, Observable } from 'rxjs';
 import { Data } from './data/data';
 import { DataService } from './data/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
     styles: [`.right { margin-right: 5px }`],
     templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
     public checkedKeys: any[] = ['1'];
 
     public enableCheck = true;
@@ -20,6 +21,8 @@ export class AppComponent implements OnInit {
     public selectionMode: any = 'single';
 
     errorMessage: string;
+
+    constructor(private http: HttpClientModule) {}
 
     public get checkableSettings(): CheckableSettings {
         return {
