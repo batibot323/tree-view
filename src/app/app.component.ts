@@ -3,14 +3,13 @@ import { CheckableSettings } from '@progress/kendo-angular-treeview';
 import { of, Observable } from 'rxjs';
 import { Data } from './data/data';
 import { DataService } from './data/data.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
     styles: [`.right { margin-right: 5px }`],
     templateUrl: './app.component.html'
 })
-export class AppComponent{
+export class AppComponent implements OnInit{
     public checkedKeys: any[] = ['1'];
 
     public enableCheck = true;
@@ -22,7 +21,7 @@ export class AppComponent{
 
     errorMessage: string;
 
-    constructor(private http: HttpClientModule) {}
+    constructor(private dataService: DataService) {}
 
     public get checkableSettings(): CheckableSettings {
         return {
@@ -53,6 +52,13 @@ export class AppComponent{
         { text: 'Decor' },
         { text: 'Outdoors' }
     ];
+
+    ngOnInit(): void {
+      this.dataService.getData().subscribe({
+        next: data => this.data = data,
+        error: err => this.errorMessage = err
+      });
+    }
 
     public children = (dataItem: any): Observable<any[]> => of(dataItem.items);
     public hasChildren = (dataItem: any): boolean => !!dataItem.items;
