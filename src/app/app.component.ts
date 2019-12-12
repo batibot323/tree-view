@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CheckableSettings } from '@progress/kendo-angular-treeview';
 import { of, Observable } from 'rxjs';
+import { Data } from './data/data';
 
 @Component({
     selector: 'app-root',
@@ -27,12 +28,12 @@ export class AppComponent {
         };
     }
 
-    public data: any[] = [
+    public data: Data[] = [
         {
           text: 'Furniture', items: [
             { text: 'Tables & Chairs' },
             { text: 'Sofas' },
-            { text: 'Hani', extra: 'Extra' },
+            { text: 'Hani' },
             {
               text: 'Occasional Furniture', items: [{
                 text: 'Decor', items: [

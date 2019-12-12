@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private dataUrl = '';
+  private dataUrl = 'api/data/data.json';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
 }

@@ -1,19 +1,19 @@
 [
   {
-    text: 'Furniture', items: [
-      { text: 'Tables & Chairs' },
-      { text: 'Sofas' },
-      { text: 'Hani', extra: 'Extra' },
+    "text": "Furniture", "items": [
+      { "text": "Tables & Chairs" },
+      { "text": "Sofas" },
+      { "text": "Hani", "extra": "Extra" },
       {
-        text: 'Occasional Furniture', items: [{
-          text: 'Decor', items: [
-            { text: 'Bed Linen' },
-            { text: 'Curtains & Blinds' }
+        "text": "Occasional Furniture", "items": [{
+          "text": "Decor", "items": [
+            { "text": "Bed Linen" },
+            { "text": "Curtains & Blinds" }
           ]
         }]
       }
     ]
   },
-  { text: 'Decor' },
-  { text: 'Outdoors' }
-];
+  { "text": "Decor" },
+  { "text": "Outdoors" }
+]
