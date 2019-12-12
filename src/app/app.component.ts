@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
     public selectionMode: any = 'single';
 
     errorMessage: string;
+    data: Data[];
 
     constructor(private dataService: DataService) {}
 
@@ -32,26 +33,6 @@ export class AppComponent implements OnInit{
             checkOnClick: this.checkOnClick
         };
     }
-
-    public data: Data[] = [
-        {
-          text: 'Furniture', items: [
-            { text: 'Tables & Chairs' },
-            { text: 'Sofas' },
-            { text: 'Hani' },
-            {
-              text: 'Occasional Furniture', items: [{
-                text: 'Decor', items: [
-                  { text: 'Bed Linen' },
-                  { text: 'Curtains & Blinds' }
-                ]
-              }]
-            }
-          ]
-        },
-        { text: 'Decor' },
-        { text: 'Outdoors' }
-    ];
 
     ngOnInit(): void {
       this.dataService.getData().subscribe({
