@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Component } from '@angular/core';
+
+import { of } from 'rxjs';
 
 @Component({
-    // tslint:disable-next-line: component-selector
     selector: 'my-app',
     template: `
-     <kendo-treeview
-         [nodes]="data"
-         [children]="children"
-         [hasChildren]="hasChildren"
-         textField="text"
+        <div class="example-config">
+            Expanded keys: {{expandedKeys.join(",")}}
+        </div>
+        <kendo-treeview
+            [nodes]="data"
+            textField="text"
+            [hasChildren]="hasChildren"
+            [children]="fetchChildren"
 
-         [isExpanded]="isExpanded"
-         (collapse)="handleCollapse($event)"
-         (expand)="handleExpand($event)"
-     >
-     </kendo-treeview>
- `
+            kendoTreeViewExpandable
+            [(expandedKeys)]="expandedKeys"
+        >
+        </kendo-treeview>
+  `
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
+    public expandedKeys: any[] = ['1'];
+
     public data: any[] = [
         {
             text: 'Furniture', items: [
@@ -36,39 +40,7 @@ export class AppComponent implements OnInit{
         }
     ];
 
-    /**
-     * The field that holds the keys of the expanded nodes.
-     */
-    public keys: string[] = [];
-
-    ngOnInit() {
-      this.keys = ['0', '1'];
-    }
-
-    /**
-     * A function that checks whether a given node index exists in the expanded keys collection.
-     * If the index can be found, the node is marked as expanded.
-     */
-    public isExpanded = (dataItem: any, index: string) => {
-        return this.keys.indexOf(index) > -1;
-    }
-
-    /**
-     * A `collapse` event handler that will remove the node hierarchical index
-     * from the collection, collapsing its children.
-     */
-    public handleCollapse(node) {
-        this.keys = this.keys.filter(k => k !== node.index);
-    }
-
-    /**
-     * An `expand` event handler that will add the node hierarchical index
-     * to the collection, expanding the its children.
-     */
-    public handleExpand(node) {
-        this.keys = this.keys.concat(node.index);
-    }
-
-    public children = (dataitem: any): Observable<any[]> => of(dataitem.items);
-    public hasChildren = (dataitem: any): boolean => !!dataitem.items;
+    public hasChildren = (item: any) => item.items && item.items.length > 0;
+    public fetchChildren = (item: any) => of(item.items);
 }
+
