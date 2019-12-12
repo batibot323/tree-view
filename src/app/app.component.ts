@@ -13,14 +13,14 @@ import { of } from 'rxjs';
             [hasChildren]="hasChildren"
             [children]="fetchChildren"
 
-            kendoTreeViewDisable
-            [disabledKeys]="disabledKeys"
+            [kendoTreeViewDisable]="'text'"
+            [(disabledKeys)]="disabledKeys"
         >
         </kendo-treeview>
   `
 })
 export class AppComponent {
-    public disabledKeys: any[] = ['0_2', '1'];
+    public disabledKeys: any[] = ['Sofas', 'Occasional Furniture', 'Bed Linen'];
 
     public data: any[] = [
         {
