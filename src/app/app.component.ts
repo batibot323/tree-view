@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CheckableSettings } from '@progress/kendo-angular-treeview';
 import { of, Observable } from 'rxjs';
 import { Data } from './data/data';
+import { DataService } from './data/data.service';
 
 @Component({
     selector: 'app-root',
     styles: [`.right { margin-right: 5px }`],
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     public checkedKeys: any[] = ['1'];
 
     public enableCheck = true;
@@ -17,6 +18,8 @@ export class AppComponent {
     public checkOnClick = false;
     public checkMode: any = 'multiple';
     public selectionMode: any = 'single';
+
+    errorMessage: string;
 
     public get checkableSettings(): CheckableSettings {
         return {
