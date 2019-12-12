@@ -1,51 +1,44 @@
 import { Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
-      selector: 'my-app',
-      template: `
-      <kendo-treeview
-          [isDisabled]="isDisabled"
+    selector: 'my-app',
+    template: `
+        <div class="example-config">
+            Disabled keys: {{disabledKeys.join(",")}}
+        </div>
+        <kendo-treeview
+            [nodes]="data"
+            textField="text"
+            [hasChildren]="hasChildren"
+            [children]="fetchChildren"
 
-          kendoTreeViewExpandable
-
-          [nodes]="data"
-          textField="text"
-
-          [children]="fetchChildren"
-          [hasChildren]="hasChildren"
-          >
-      </kendo-treeview>
+            kendoTreeViewDisable
+            [disabledKeys]="disabledKeys"
+        >
+        </kendo-treeview>
   `
-  })
-  export class AppComponent {
+})
+export class AppComponent {
+    public disabledKeys: any[] = ['0_2', '1'];
 
-      public data: any[] = [{
-              text: 'Furniture', items: [
-                  { text: 'Tables & Chairs' },
-                  { text: 'Sofas' },
-                  { text: 'Occasional Furniture' }
-              ]
-          }, {
-              text: 'Decor', items: [
-                  { text: 'Bed Linen' },
-                  { text: 'Curtains & Blinds' },
-                  { text: 'Carpets' }
-              ]
-          }
-      ];
-      // A function that disables every item with a text field which equals to 'Decor'.
-      public isDisabled = (dataItem: any) => {
-          return dataItem.text === 'Decor';
-      }
+    public data: any[] = [
+        {
+            text: 'Furniture', items: [
+                { text: 'Tables & Chairs' },
+                { text: 'Sofas' },
+                { text: 'Occasional Furniture' }
+            ]
+        },
+        {
+            text: 'Decor', items: [
+                { text: 'Bed Linen' },
+                { text: 'Curtains & Blinds' },
+                { text: 'Carpets' }
+            ]
+        }
+    ];
 
-      public fetchChildren(node: any): Observable<any[]> {
-          // Return the node collection of the parent node as children.
-          return of(node.items);
-      }
-
-      public hasChildren(node: any): boolean {
-          // Check if the parent node has children.
-          return node.items && node.items.length > 0;
-      }
-  }
+    public hasChildren = (item: any) => item.items && item.items.length > 0;
+    public fetchChildren = (item: any) => of(item.items);
+}
