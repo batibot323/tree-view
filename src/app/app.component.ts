@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { of } from 'rxjs';
 
 @Component({
@@ -15,13 +14,14 @@ import { of } from 'rxjs';
             [children]="fetchChildren"
 
             kendoTreeViewExpandable
+            [expandBy]="'text'"
             [(expandedKeys)]="expandedKeys"
         >
         </kendo-treeview>
   `
 })
 export class AppComponent {
-    public expandedKeys: any[] = ['1'];
+    public expandedKeys: any[] = ['Furniture'];
 
     public data: any[] = [
         {
@@ -43,4 +43,3 @@ export class AppComponent {
     public hasChildren = (item: any) => item.items && item.items.length > 0;
     public fetchChildren = (item: any) => of(item.items);
 }
-
